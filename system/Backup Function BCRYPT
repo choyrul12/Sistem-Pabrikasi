@@ -1,0 +1,45 @@
+public function unitTest(){
+    $test = "";
+    $test2 = "";
+    for ($i=1; $i <=72 ; $i++) {
+      $test = password_hash("Avandhy Kurniawan".$i, PASSWORD_BCRYPT, array("cost"=>12));
+      $test2 .= $test;
+      if($i==7){
+        echo $test."<br>";
+      }
+    }
+    echo $test2;
+    // $compress = gzcompress($test, 9);
+    // $uncompress = gzuncompress($compress);
+    // echo $uncompress;
+    // echo $compress;
+    // 
+
+  }
+
+  public function unitTest2(){
+    $file = BASEPATH."test.txt";
+    $key = fopen($file,"r");
+    $data = fread($key,filesize($file));
+    $dataOut = gzcompress($data, 9);
+    $gzipOut = gzencode($dataOut,7);
+    header('Content-Type: application/x-download');
+    header('Content-Encoding: gzip'); #
+    header('Content-Length: '.strlen($gzipOut)); #
+    header('Content-Disposition: attachment; filename="SysKey.Av"');
+    header('Cache-Control: no-cache, no-store, max-age=0, must-revalidate');
+    header('Pragma: no-cache');
+
+    // output data
+    echo $gzipOut;
+
+  }
+
+  public function unitTest3(){
+    $file = BASEPATH."core/compat/SysKey.Av";
+    $key = fopen($file,"r");
+    $data = fread($key,filesize($file));
+    // $TextCompressed = gzdecode($data);
+    $TextRead = gzuncompress($data);
+    echo $TextRead;
+  }
